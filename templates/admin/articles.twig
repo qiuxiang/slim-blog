@@ -2,7 +2,7 @@
 {% block body %}
     <div class="form-group">
         <a class="btn btn-primary" href="/admin/article">
-            <span class="glyphicon glyphicon-plus"></span> 新建
+            <span class="glyphicon glyphicon-plus"></span> 添加文章
         </a>
     </div>
     <table class="table" style="margin-bottom: 0">
@@ -22,7 +22,7 @@
                 <td>{{ article.created_at }}</td>
                 <td>
                     <div class="btn-group">
-                        <a class="btn btn-xs btn-danger" href="javascript:delete({{ article.id }})" title="删除">
+                        <a class="btn btn-xs btn-danger" href="javascript:remove({{ article.id }})" title="删除">
                             <span class="glyphicon glyphicon-trash"></span>
                         </a>
                         <a class="btn btn-xs btn-warning" href="/admin/article/{{ article.id }}" title="编辑">

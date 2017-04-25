@@ -1,12 +1,12 @@
 {% extends "admin/base.twig" %}
 {% block body %}
     <form class="form-inline" method="post">
-        <div class="form-group">
-            <label for="nickname">昵称：</label>
+        <label for="nickname">昵称：</label>
+        <div class="input-group">
             <input type="text" class="form-control" id="nickname" name="nickname" value="{{ user.nickname }}" required>
-        </div>
-        <div class="form-group">
-            <button class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span></button>
+            <span class="input-group-btn">
+                <button class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span></button>
+            </span>
         </div>
     </form>
 {% endblock %}
