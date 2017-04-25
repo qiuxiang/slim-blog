@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Controller;
-use Psr\Http\Message\ResponseInterface as Response;
+
+use Slim\Http\Request;
+use Slim\Http\Response;
 use Slim\Views\Twig;
 
 /**
@@ -9,6 +11,11 @@ use Slim\Views\Twig;
  */
 class Base
 {
+    /**
+     * @var Request
+     */
+    protected $request;
+
     /**
      * @var Response
      */
@@ -22,8 +29,18 @@ class Base
     public function __construct($container)
     {
         $this->view = $container->view;
+        $this->request = $container->request;
         $this->response = $container->response;
         $this->data = [];
+    }
+
+    public function alert($type, $message, $redirect='')
+    {
+        return $this->render('home/alert.twig', [
+            'type' => $type,
+            'message' => $message,
+            'redirect' => $redirect,
+        ]);
     }
 
     public function render($template, $data = [])
