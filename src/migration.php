@@ -23,6 +23,6 @@ if (!$schema->hasTable('user')) {
     $user->nickname = '管理员';
     $user->salt = User::salt();
     $user->password = User::hash('admin', $user->salt);
-    $user->admin = 2;
+    $user->admin = User::ROLE_SUPER_ADMIN;
     $user->save();
 }
