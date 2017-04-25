@@ -1,6 +1,37 @@
 {% extends "admin/base.twig" %}
 {% block body %}
-    <a class="btn btn-primary" href="/admin/article">
-        <span class="glyphicon glyphicon-plus"></span> 新建
-    </a>
+    <div class="form-group">
+        <a class="btn btn-primary" href="/admin/article">
+            <span class="glyphicon glyphicon-plus"></span> 新建
+        </a>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>作者</th>
+            <th>标题</th>
+            <th>发布时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for article in articles %}
+            <tr>
+                <td>{{ article.user.nickname }}</td>
+                <td><a href="/article/{{ article.id }}">{{ article.title }}</a></td>
+                <td>{{ article.created_at }}</td>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn btn-xs btn-danger" href="javascript:delete({{ article.id }})" title="删除">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                        <a class="btn btn-xs btn-warning" href="/admin/article/{{ article.id }}" title="编辑">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

@@ -55,11 +55,12 @@ class Admin extends Base
     public function articles() {
         return $this->auth(function () {
             $this->active('article');
-            return $this->render('admin/articles.twig');
+            $articles = Article::query()->simplePaginate(10);
+            return $this->render('admin/articles.twig', ['articles' => $articles]);
         });
     }
 
-    public function article() {
+    public function newArticle() {
         return $this->auth(function () {
             $this->active('article');
             return $this->render('admin/article.twig');
