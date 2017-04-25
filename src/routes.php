@@ -11,3 +11,6 @@ $app->get('/logout', HomeController::class . ':logout');
 $app->get('/admin', AdminController::class . ':index');
 $app->get('/admin/personal', AdminController::class . ':personal');
 $app->post('/admin/personal', AdminController::class . ':updatePersonalInfo');
+$app->get('/admin/articles', AdminController::class . ':articles');
+$app->get('/admin/article', AdminController::class . ':article');
+$app->post('/admin/article', AdminController::class . ':addArticle');

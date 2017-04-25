@@ -14,8 +14,7 @@ if (!$schema->hasTable('user')) {
         $table->string('password');
         $table->string('salt');
         $table->integer('role')->default(User::ROLE_USER);
-        $table->dateTime('updated_at');
-        $table->dateTime('created_at');
+        $table->timestamps();
     });
 
     $user = new User();
@@ -25,4 +24,14 @@ if (!$schema->hasTable('user')) {
     $user->password = User::hash('admin', $user->salt);
     $user->role = User::ROLE_ADMIN;
     $user->save();
+}
+
+if (!$schema->hasTable('article')) {
+    $schema->create('article', function (Blueprint $table) {
+        $table->increments('id');
+        $table->string('title');
+        $table->string('content');
+        $table->integer('user_id');
+        $table->timestamps();
+    });
 }

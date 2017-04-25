@@ -1,0 +1,33 @@
+{% extends "admin/base.twig" %}
+{% block body %}
+    <form method="post">
+        <div class="form-group">
+            <input class="form-control" type="text" name="title" placeholder="标题" required>
+        </div>
+        <textarea name="content" id="content" hidden></textarea>
+        <div class="form-group">
+            <div id="editor"></div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary">
+                <span class="glyphicon glyphicon-ok"></span> 提交
+            </button>
+        </div>
+    </form>
+{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="//cdn.bootcss.com/quill/1.2.4/quill.snow.min.css">
+{% endblock %}
+{% block script %}
+    <script src="//cdn.bootcss.com/quill/1.2.4/quill.min.js"></script>
+    <script>
+        var editor = new Quill('#editor', {
+            theme: 'snow'
+        });
+
+        editor.on('text-change', function() {
+            $('#content').val(editor.getText());
+        });
+    </script>
+{% endblock %}
+

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\Article;
 use App\Model\User;
 
 class Admin extends Base
@@ -14,7 +15,7 @@ class Admin extends Base
             User::ROLE_USER => [
                 [
                     'url' => '/admin/personal',
-                    'title' => '个人信息',
+                    'title' => '个人',
                 ],
             ],
         ];
@@ -48,6 +49,32 @@ class Admin extends Base
             $this->user->nickname = $this->request->getParsedBody()['nickname'];
             $this->user->save();
             $this->alert('success', '修改成功', '/admin/personal');
+        });
+    }
+
+    public function articles() {
+        return $this->auth(function () {
+            $this->active('article');
+            return $this->render('admin/articles.twig');
+        });
+    }
+
+    public function article() {
+        return $this->auth(function () {
+            $this->active('article');
+            return $this->render('admin/article.twig');
+        });
+    }
+
+    public function addArticle() {
+        return $this->auth(function () {
+            $data = $this->request->getParsedBody();
+            $article = new Article();
+            $article->title = $data['title'];
+            $article->content = $data['content'];
+            $article->user_id = $this->user->id;
+            $article->save();
+            $this->alert('success', '添加文章成功', '/admin/articles');
         });
     }
 
