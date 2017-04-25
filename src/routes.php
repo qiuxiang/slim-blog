@@ -8,6 +8,6 @@ $app->post('/login', HomeController::class . ':handleLogin');
 $app->get('/register', HomeController::class . ':register');
 $app->post('/register', HomeController::class . ':handleRegister');
 $app->get('/logout', HomeController::class . ':logout');
-$app->get('/admin', AdminController::class . ':personal');
+$app->get('/admin', AdminController::class . ':index');
 $app->get('/admin/personal', AdminController::class . ':personal');
 $app->post('/admin/personal', AdminController::class . ':updatePersonalInfo');

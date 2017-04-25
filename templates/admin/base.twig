@@ -10,7 +10,7 @@
     <div class="container">
         <ul class="nav navbar-nav">
             {% for item in menu %}
-            <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+            <li class="{{ item.active ? 'active' : '' }}"><a href="{{ item.url }}">{{ item.title }}</a></li>
             {% endfor %}
         </ul>
         <ul class="nav navbar-nav navbar-right">

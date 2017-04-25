@@ -32,8 +32,13 @@ class Admin extends Base
         $this->data['menu'] = $menu[$this->user->role];
     }
 
+    public function index() {
+        return $this->redirect('/admin/personal');
+    }
+
     public function personal() {
         return $this->auth(function () {
+            $this->active('personal');
             return $this->render('admin/personal.twig');
         });
     }
@@ -44,5 +49,13 @@ class Admin extends Base
             $this->user->save();
             $this->alert('success', '修改成功', '/admin/personal');
         });
+    }
+
+    public function active($menuItem) {
+        foreach ($this->data['menu'] as &$item) {
+            if (strpos($item['url'], $menuItem)) {
+                $item['active'] = true;
+            }
+        }
     }
 }
