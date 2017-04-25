@@ -18,6 +18,11 @@ class Home extends Base
         return $this->render('home/index.twig');
     }
 
+    public function logout() {
+        $_SESSION['user'] = null;
+        return $this->redirect('/login');
+    }
+
     public function login()
     {
         return $this->render('home/login.twig');
