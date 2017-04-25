@@ -5,8 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Model
 {
     const ROLE_USER = 0;
-    const ROLE_ADMIN = 1;
-    const ROLE_SUPER_ADMIN = 2;
+    const ROLE_WRITER = 1;
+    const ROLE_ADMIN = 2;
 
     protected $table = 'user';
 

@@ -10,10 +10,10 @@ if (!$schema->hasTable('user')) {
     $schema->create('user', function (Blueprint $table) {
         $table->increments('id');
         $table->string('name')->unique();
-        $table->string('nickname')->default('');
+        $table->string('nickname');
         $table->string('password');
         $table->string('salt');
-        $table->integer('admin')->default(0);
+        $table->integer('role')->default(User::ROLE_USER);
         $table->dateTime('updated_at');
         $table->dateTime('created_at');
     });
@@ -23,6 +23,6 @@ if (!$schema->hasTable('user')) {
     $user->nickname = '管理员';
     $user->salt = User::salt();
     $user->password = User::hash('admin', $user->salt);
-    $user->admin = User::ROLE_SUPER_ADMIN;
+    $user->role = User::ROLE_ADMIN;
     $user->save();
 }
