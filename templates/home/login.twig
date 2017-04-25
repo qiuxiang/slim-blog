@@ -1,0 +1,26 @@
+{% extends "home/base.twig" %}
+{% block title %}登录{% endblock %}
+{% block body %}
+    <form class="login-form" method="post">
+        <div class="form-group">
+            <input type="text"
+                   class="form-control"
+                   name="username"
+                   title="用户名"
+                   placeholder="用户名"
+                   required>
+        </div>
+        <div class="form-group">
+            <input type="password"
+                   class="form-control"
+                   name="password"
+                   title="密码"
+                   placeholder="密码"
+                   required>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary btn-block">登录</button>
+        </div>
+        <span class="help-block text-right"><a href="/register">没有帐号？点击注册</a></span>
+    </form>
+{% endblock %}
