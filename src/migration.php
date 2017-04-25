@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Capsule\Manager as Capsule;
+use App\Model\User;
 
 require '../vendor/autoload.php';
 require 'capsule.php';
@@ -13,13 +14,15 @@ if (!$schema->hasTable('user')) {
         $table->string('password');
         $table->string('salt');
         $table->integer('admin')->default(0);
+        $table->dateTime('updated_at');
+        $table->dateTime('created_at');
     });
 
-    $salt = uniqid(rand(), true);
-    Capsule::table('user')->insert([
-        'name' => 'admin',
-        'salt' => $salt,
-        'password' => sha1($salt . 'admin'),
-        'admin' => 2,
-    ]);
+    $user = new User();
+    $user->name = 'admin';
+    $user->nickname = '管理员';
+    $user->salt = User::salt();
+    $user->password = User::hash('admin', $user->salt);
+    $user->admin = 2;
+    $user->save();
 }
