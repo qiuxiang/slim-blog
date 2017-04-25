@@ -30,6 +30,7 @@ if (!$schema->hasTable('article')) {
     $schema->create('article', function (Blueprint $table) {
         $table->increments('id');
         $table->string('title');
+        $table->string('summary');
         $table->string('content');
         $table->integer('user_id');
         $table->timestamps();

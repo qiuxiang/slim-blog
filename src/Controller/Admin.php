@@ -71,6 +71,7 @@ class Admin extends Base
             $data = $this->request->getParsedBody();
             $article = new Article();
             $article->title = $data['title'];
+            $article->summary = $data['summary'];
             $article->content = $data['content'];
             $article->user_id = $this->user->id;
             $article->save();
