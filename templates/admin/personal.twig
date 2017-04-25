@@ -1,0 +1,12 @@
+{% extends "admin/base.twig" %}
+{% block body %}
+    <form class="form-inline" action="/admin/personal" method="post">
+        <div class="form-group">
+            <label for="nickname">昵称：</label>
+            <input type="text" class="form-control" id="nickname" name="nickname" value="{{ user.nickname }}" required>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary">提交</button>
+        </div>
+    </form>
+{% endblock %}

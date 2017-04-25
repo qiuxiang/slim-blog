@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\User;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\Views\Twig;
@@ -26,12 +27,27 @@ class Base
      */
     protected $view;
 
+    /**
+     * View data, will be passed in template
+     *
+     * @var array
+     */
+    protected $data = [];
+
+    /**
+     * @var User
+     */
+    protected $user;
+
     public function __construct($container)
     {
         $this->view = $container->view;
         $this->request = $container->request;
         $this->response = $container->response;
-        $this->data = [];
+        $this->user = $_SESSION['user'];
+        if ($this->user) {
+            $this->data['user'] = $this->user;
+        }
     }
 
     public function alert($type, $message, $redirect='')
@@ -54,9 +70,9 @@ class Base
         return $this->response->withStatus(302)->withHeader('Location', $url);
     }
 
-    public function auth($action)
+    protected function auth($action)
     {
-        if ($_SESSION['user']) {
+        if ($this->user) {
             return $action();
         } else {
             return $this->redirect('/login');
