@@ -60,23 +60,28 @@ class Admin extends Base
         });
     }
 
-    public function newArticle() {
-        return $this->auth(function () {
+    public function article($req, $res, $args) {
+        return $this->auth(function () use($args) {
             $this->active('article');
-            return $this->render('admin/article.twig');
+            $article = Article::query()->find($args['id']);
+            return $this->render('admin/article.twig', ['article' => $article]);
         });
     }
 
-    public function addArticle() {
+    public function saveArticle() {
         return $this->auth(function () {
             $data = $this->request->getParsedBody();
-            $article = new Article();
+            if ($data['id']) {
+                $article = Article::query()->find($data['id']);
+            } else {
+                $article = new Article();
+                $article->user_id = $this->user->id;
+            }
             $article->title = $data['title'];
             $article->summary = $data['summary'];
             $article->content = $data['content'];
-            $article->user_id = $this->user->id;
             $article->save();
-            $this->alert('success', '添加文章成功', '/admin/articles');
+            $this->alert('success', '保存文章成功', '/admin/articles');
         });
     }
 

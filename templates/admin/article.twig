@@ -1,15 +1,16 @@
 {% extends "admin/base.twig" %}
 {% block body %}
-    <form method="post">
+    <form method="post" action="/admin/article">
+        <input name="id" value="{{ article.id }}" title="id" hidden>
         <div class="form-group">
-            <input class="form-control" type="text" name="title" placeholder="标题" required>
+            <input class="form-control" type="text" name="title" placeholder="标题" value="{{ article.title }}" required>
         </div>
         <div class="form-group">
-            <textarea class="form-control" name="summary" title="摘要" placeholder="摘要"></textarea>
+            <textarea class="form-control" name="summary" title="摘要" placeholder="摘要">{{ article.summary }}</textarea>
         </div>
         <div class="form-group">
             <textarea name="content" id="content" title="content" hidden></textarea>
-            <div id="editor"></div>
+            <div id="editor">{{ article.content|raw }}</div>
         </div>
         <div class="form-group">
             <button class="btn btn-primary">
@@ -30,7 +31,7 @@
                 toolbar: [
                     [{header: [1, 2, 3, 4, 5, 6, false]}],
                     ['bold', 'italic', 'underline', 'strike'],
-                    [{ 'color': [] }, { 'background': [] }],
+                    [{color: [] }, {background: []}],
                     [{list: 'ordered'}, {list: 'bullet'}],
                     ['blockquote', 'link', 'image']
                 ]
