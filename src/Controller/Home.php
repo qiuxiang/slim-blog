@@ -23,6 +23,21 @@ class Home extends Base
         return $this->render('home/login.twig');
     }
 
+    public function handleLogin()
+    {
+        $data = $this->request->getParsedBody();
+        $user = User::query()->where('name', $data['username'])->first();
+        if (!$user) {
+            return $this->alert('danger', '用户“' . $data['username'] . '”不存在');
+        }
+        if ($user->password == User::hash($data['password'], $user->salt)) {
+            $_SESSION['user'] = $user;
+            return $this->redirect('/admin');
+        } else {
+            return $this->alert('danger', '密码错误');
+        }
+    }
+
     public function register()
     {
         return $this->render('home/register.twig');
@@ -46,6 +61,6 @@ class Home extends Base
         $user->salt = User::salt();
         $user->password = User::hash($data['password'], $user->salt);
         $user->save();
-        return $this->alert('success', '注册成功', '/');
+        return $this->alert('success', '注册成功', '/login');
     }
 }
