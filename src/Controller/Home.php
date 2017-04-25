@@ -1,23 +1,51 @@
 <?php
+
 namespace App\Controller;
+
+use App\Model\User;
 
 class Home extends Base
 {
-   protected $container;
+    protected $container;
 
-   public function __construct($container) {
-       parent::__construct($container);
-   }
+    public function __construct($container)
+    {
+        parent::__construct($container);
+    }
 
-   public function index() {
+    public function index()
+    {
         return $this->render('home/index.twig');
-   }
+    }
 
-   public function login() {
-       return $this->render('home/login.twig');
-   }
+    public function login()
+    {
+        return $this->render('home/login.twig');
+    }
 
-    public function register() {
+    public function register()
+    {
         return $this->render('home/register.twig');
+    }
+
+    public function handleRegister()
+    {
+        $data = $this->request->getParsedBody();
+        if ($data['password'] != $data['password-again']) {
+            return $this->alert('danger', '两次输入的密码不一致');
+        }
+        if (User::query()->where('name', $data['username'])->count()) {
+            return $this->alert('danger', '用户名已存在');
+        }
+        if (User::query()->where('nickname', $data['nickname'])->count()) {
+            return $this->alert('danger', '昵称已存在');
+        }
+        $user = new User();
+        $user->name = $data['username'];
+        $user->nickname = $data['nickname'];
+        $user->salt = User::salt();
+        $user->password = User::hash($data['password'], $user->salt);
+        $user->save();
+        return $this->alert('success', '注册成功', '/');
     }
 }
