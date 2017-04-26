@@ -9,7 +9,7 @@
             <textarea class="form-control" name="summary" title="摘要" placeholder="摘要">{{ article.summary }}</textarea>
         </div>
         <div class="form-group">
-            <textarea name="content" id="content" title="content" hidden></textarea>
+            <textarea name="content" id="content" title="content" hidden>{{ article.content }}</textarea>
             <div id="editor">{{ article.content|raw }}</div>
         </div>
         <div class="form-group">
