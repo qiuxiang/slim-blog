@@ -1,23 +1,23 @@
 <?php
-use App\Controller\Home as HomeController;
-use App\Controller\Admin as AdminController;
+use App\Controller\Home;
+use App\Controller\Admin;
 
-$app->get('/', HomeController::class . ':index');
-$app->get('/article/{id}', HomeController::class . ':article');
-$app->post('/comment', HomeController::class . ':comment');
-$app->get('/login', HomeController::class . ':login');
-$app->post('/login', HomeController::class . ':handleLogin');
-$app->get('/register', HomeController::class . ':register');
-$app->post('/register', HomeController::class . ':handleRegister');
-$app->get('/logout', HomeController::class . ':logout');
+$app->get('/', Home::class . ':index');
+$app->get('/article/{id}', Home::class . ':article');
+$app->post('/comment', Home::class . ':comment');
+$app->get('/login', Home::class . ':login');
+$app->post('/login', Home::class . ':handleLogin');
+$app->get('/register', Home::class . ':register');
+$app->post('/register', Home::class . ':handleRegister');
+$app->get('/logout', Home::class . ':logout');
 
-$app->get('/admin', AdminController::class . ':index');
-$app->get('/admin/personal', AdminController::class . ':personal');
-$app->post('/admin/personal', AdminController::class . ':updatePersonalInfo');
-$app->get('/admin/users', AdminController::class . ':users');
-$app->post('/admin/user/{id}/toggle_role', AdminController::class . ':toggleUserRole');
-$app->get('/admin/articles', AdminController::class . ':articles');
-$app->get('/admin/article', AdminController::class . ':article');
-$app->post('/admin/article', AdminController::class . ':saveArticle');
-$app->get('/admin/article/{id}', AdminController::class . ':article');
-$app->delete('/admin/article/{id}', AdminController::class . ':deleteArticle');
+$app->get('/admin', Admin::class . ':index');
+$app->get('/admin/personal', Admin::class . ':personal');
+$app->post('/admin/personal', Admin::class . ':updatePersonalInfo');
+$app->get('/admin/users', Admin::class . ':users');
+$app->post('/admin/user/{id}/toggle_role', Admin::class . ':toggleUserRole');
+$app->get('/admin/articles', Admin::class . ':articles');
+$app->get('/admin/article', Admin::class . ':article');
+$app->post('/admin/article', Admin::class . ':saveArticle');
+$app->get('/admin/article/{id}', Admin::class . ':article');
+$app->delete('/admin/article/{id}', Admin::class . ':deleteArticle');
