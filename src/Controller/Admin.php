@@ -64,7 +64,11 @@ class Admin extends Base
         return $this->auth(function () {
             $this->active('article');
             $page = $this->request->getQueryParam('page');
-            $articles = Article::query()->paginate(20, ['*'], 'page', $page);
+            $query = Article::query();
+            if (!$this->user->isAdmin()) {
+                $query->where('user_id', $this->user->id);
+            }
+            $articles = $query->paginate(20, ['*'], 'page', $page);
             $articles->withPath('/admin/articles');
             return $this->render('admin/articles.twig', ['articles' => $articles]);
         });
@@ -94,6 +98,10 @@ class Admin extends Base
             $data = $this->request->getParsedBody();
             if ($data['id']) {
                 $article = Article::query()->find($data['id']);
+                // 只有超级管理员，或文章的作者可以修改
+                if (!$this->user->isAdmin() && $article->user->id != $this->user->id) {
+                    return $this->alert('danger', '权限错误', '/admin/articles');
+                }
             } else {
                 $article = new Article();
                 $article->user_id = $this->user->id;
