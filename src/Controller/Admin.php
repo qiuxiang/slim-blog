@@ -112,7 +112,7 @@ class Admin extends Base
             $article->summary = $data['summary'];
             $article->content = $data['content'];
             $article->save();
-            $this->alert('success', '保存文章成功', '/admin/articles');
+            return $this->alert('success', '保存文章成功', '/admin/articles');
         });
     }
 
