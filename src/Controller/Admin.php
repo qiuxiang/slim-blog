@@ -74,6 +74,14 @@ class Admin extends Base
         });
     }
 
+    public function deleteArticle($req, $res, $args) {
+        return $this->auth(function () use($args) {
+            $article = Article::query()->find($args['id']);
+            $article->delete();
+            return $this->response->write(true);
+        });
+    }
+
     public function saveArticle() {
         return $this->auth(function () {
             $data = $this->request->getParsedBody();

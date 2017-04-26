@@ -16,5 +16,6 @@ $app->get('/admin/personal', AdminController::class . ':personal');
 $app->post('/admin/personal', AdminController::class . ':updatePersonalInfo');
 $app->get('/admin/articles', AdminController::class . ':articles');
 $app->get('/admin/article', AdminController::class . ':article');
-$app->get('/admin/article/{id}', AdminController::class . ':article');
 $app->post('/admin/article', AdminController::class . ':saveArticle');
+$app->get('/admin/article/{id}', AdminController::class . ':article');
+$app->delete('/admin/article/{id}', AdminController::class . ':deleteArticle');
