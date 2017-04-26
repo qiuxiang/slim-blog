@@ -92,6 +92,15 @@ class Admin extends Base
         });
     }
 
+    public function deleteUser($req, $res, $args)
+    {
+        return $this->auth(function () use ($args) {
+            $user = User::query()->find($args['id']);
+            $user->delete();
+            return $this->response->write(true);
+        });
+    }
+
     public function articles()
     {
         return $this->auth(function () {

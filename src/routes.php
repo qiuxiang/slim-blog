@@ -15,6 +15,7 @@ $app->get('/admin', Admin::class . ':index');
 $app->get('/admin/personal', Admin::class . ':personal');
 $app->post('/admin/personal', Admin::class . ':updatePersonalInfo');
 $app->get('/admin/users', Admin::class . ':users');
+$app->delete('/admin/user/{id}', Admin::class . ':deleteUser');
 $app->post('/admin/user/{id}/toggle_role', Admin::class . ':toggleUserRole');
 $app->get('/admin/articles', Admin::class . ':articles');
 $app->get('/admin/article', Admin::class . ':article');

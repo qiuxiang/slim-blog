@@ -19,10 +19,13 @@
                 <td>{{ user.created_at }}</td>
                 <td>
                     {% if not user.isAdmin() %}
+                        <a class="btn btn-xs btn-danger" href="javascript:remove({{ user.id }})" title="删除">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
                         {% if user.isWriter() %}
-                            <a class="text-warning" href="javascript:toggle({{ user.id }})">设为用户</a>
+                            <a class="btn btn-xs btn-warning" href="javascript:toggle({{ user.id }})">设为用户</a>
                         {% else %}
-                            <a class="text-success" href="javascript:toggle({{ user.id }})">设为作者</a>
+                            <a class="btn btn-xs btn-success" href="javascript:toggle({{ user.id }})">设为作者</a>
                         {% endif %}
                     {% endif %}
                 </td>
@@ -56,6 +59,17 @@
             $.post('/admin/user/' + userID + '/toggle_role').then(function () {
                 location.reload()
             })
+        }
+
+        function remove(user_id) {
+            if (confirm('确定删除该用户？')) {
+                $.ajax({
+                    url: '/admin/user/' + user_id,
+                    method: 'delete'
+                }).then(function () {
+                    location.reload()
+                })
+            }
         }
     </script>
 {% endblock %}
