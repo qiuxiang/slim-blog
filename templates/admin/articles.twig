@@ -35,23 +35,23 @@
         </tbody>
     </table>
     {% if articles.total() > articles.perPage() %}
-    <ul class="pagination">
-        <li class="{{ articles.previousPageUrl() ? '' : 'disabled' }}">
-            <a href="{{ articles.previousPageUrl() }}">
-                <span>&laquo;</span>
-            </a>
-        </li>
-        {% for page in range(1, articles.lastPage()) %}
-            <li class="{{ articles.currentPage() == page ? 'disabled' : '' }}">
-                <a href="/admin/articles?page={{ page }}">{{ page }}</a>
+        <ul class="pagination">
+            <li class="{{ articles.previousPageUrl() ? '' : 'disabled' }}">
+                <a href="{{ articles.previousPageUrl() }}">
+                    <span>&laquo;</span>
+                </a>
             </li>
-        {% endfor %}
-        <li class="{{ articles.nextPageUrl() ? '' : 'disabled' }}">
-            <a href="{{ articles.nextPageUrl() }}">
-                <span>&raquo;</span>
-            </a>
-        </li>
-    </ul>
+            {% for page in range(1, articles.lastPage()) %}
+                <li class="{{ articles.currentPage() == page ? 'disabled' : '' }}">
+                    <a href="/admin/articles?page={{ page }}">{{ page }}</a>
+                </li>
+            {% endfor %}
+            <li class="{{ articles.nextPageUrl() ? '' : 'disabled' }}">
+                <a href="{{ articles.nextPageUrl() }}">
+                    <span>&raquo;</span>
+                </a>
+            </li>
+        </ul>
     {% endif %}
 {% endblock %}
 {% block script %}

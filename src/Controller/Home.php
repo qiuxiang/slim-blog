@@ -26,12 +26,14 @@ class Home extends Base
         return $this->render('home/index.twig', ['articles' => $articles, 'search' => $search]);
     }
 
-    public function article($req, $res, $args) {
+    public function article($req, $res, $args)
+    {
         $article = Article::query()->find($args['id']);
         return $this->render('home/article.twig', ['article' => $article]);
     }
 
-    public function comment() {
+    public function comment()
+    {
         $data = $this->request->getParsedBody();
         $comment = new Comment();
         $comment->user_id = $this->user->id;

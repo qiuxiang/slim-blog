@@ -31,14 +31,14 @@
                 toolbar: [
                     [{header: [1, 2, 3, 4, 5, 6, false]}],
                     ['bold', 'italic', 'underline', 'strike'],
-                    [{color: [] }, {background: []}],
+                    [{color: []}, {background: []}],
                     [{list: 'ordered'}, {list: 'bullet'}],
                     ['blockquote', 'link', 'image']
                 ]
             }
         });
 
-        editor.on('text-change', function() {
+        editor.on('text-change', function () {
             $('#content').val($('.ql-editor').html());
         });
     </script>

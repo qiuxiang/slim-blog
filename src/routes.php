@@ -1,6 +1,6 @@
 <?php
-use App\Controller\Home;
 use App\Controller\Admin;
+use App\Controller\Home;
 
 $app->get('/', Home::class . ':index');
 $app->get('/article/{id}', Home::class . ':article');

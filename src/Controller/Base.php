@@ -50,7 +50,7 @@ class Base
         }
     }
 
-    public function alert($type, $message, $redirect='')
+    public function alert($type, $message, $redirect = '')
     {
         return $this->render('home/alert.twig', [
             'type' => $type,
@@ -65,11 +65,6 @@ class Base
             $this->response, $template, array_merge($this->data, $data));
     }
 
-    public function redirect($url)
-    {
-        return $this->response->withStatus(302)->withHeader('Location', $url);
-    }
-
     protected function auth($action)
     {
         if ($this->user) {
@@ -77,5 +72,10 @@ class Base
         } else {
             return $this->redirect('/login');
         }
+    }
+
+    public function redirect($url)
+    {
+        return $this->response->withStatus(302)->withHeader('Location', $url);
     }
 }

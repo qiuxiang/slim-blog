@@ -50,6 +50,15 @@ class Admin extends Base
         });
     }
 
+    public function active($menuItem)
+    {
+        foreach ($this->data['menu'] as &$item) {
+            if (strpos($item['url'], $menuItem)) {
+                $item['active'] = true;
+            }
+        }
+    }
+
     public function updatePersonalInfo()
     {
         return $this->auth(function () {
@@ -146,14 +155,5 @@ class Admin extends Base
             $user->save();
             return $this->response->getBody()->write(true);
         });
-    }
-
-    public function active($menuItem)
-    {
-        foreach ($this->data['menu'] as &$item) {
-            if (strpos($item['url'], $menuItem)) {
-                $item['active'] = true;
-            }
-        }
     }
 }

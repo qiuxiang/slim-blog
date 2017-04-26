@@ -1,7 +1,7 @@
 <?php
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Capsule\Manager as Capsule;
 use App\Model\User;
+use Illuminate\Database\Capsule\Manager as Capsule;
+use Illuminate\Database\Schema\Blueprint;
 
 require '../vendor/autoload.php';
 require 'capsule.php';

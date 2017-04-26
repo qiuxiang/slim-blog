@@ -19,6 +19,11 @@ class Article extends Model
         return $this->hasMany('App\Model\Comment');
     }
 
+    /**
+     * 从正文提取第一张图片作为封面
+     *
+     * @return string
+     */
     public function getImage()
     {
         $dom = new DOMDocument();
