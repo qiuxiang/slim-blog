@@ -20,7 +20,9 @@ class Home extends Base
                 ->orWhere([['summary', 'like', "%$search%"]])
                 ->orWhere([['content', 'like', "%$search%"]]);
         }
-        $articles = $query->paginate(10, ['*'], 'page', $page);
+        $articles = $query
+            ->orderBy('created_at', 'desc')
+            ->paginate(10, ['*'], 'page', $page);
         return $this->render('home/index.twig', ['articles' => $articles, 'search' => $search]);
     }
 

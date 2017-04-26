@@ -68,7 +68,9 @@ class Admin extends Base
             if (!$this->user->isAdmin()) {
                 $query->where('user_id', $this->user->id);
             }
-            $articles = $query->paginate(20, ['*'], 'page', $page);
+            $articles = $query
+                ->orderBy('created_at', 'desc')
+                ->paginate(20, ['*'], 'page', $page);
             $articles->withPath('/admin/articles');
             return $this->render('admin/articles.twig', ['articles' => $articles]);
         });
