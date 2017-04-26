@@ -3,6 +3,16 @@
 {% block body %}
     <header class="navbar navbar-static-top" id="top">
         <div class="container">
+            <form class="navbar-form navbar-left">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="搜索" value="{{ search }}">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </form>
             <ul class="nav navbar-nav navbar-right">
                 {% if user %}
                     <li class="dropdown">
@@ -21,7 +31,7 @@
             </ul>
         </div>
     </header>
-    <div class="container">
+    <div class="container body">
         {% for article in articles %}
             <div class="article-item">
                 <h3><a href="/article/{{ article.id }}">{{ article.title }}</a></h3>
@@ -33,6 +43,7 @@
                 <p>{{ article.summary }}</p>
             </div>
         {% endfor %}
+        {% if articles.total() > articles.perPage() %}
         <ul class="pagination">
             <li class="{{ articles.previousPageUrl() ? '' : 'disabled' }}">
                 <a href="{{ articles.previousPageUrl() }}">
@@ -50,5 +61,6 @@
                 </a>
             </li>
         </ul>
+        {% endif %}
     </div>
 {% endblock %}

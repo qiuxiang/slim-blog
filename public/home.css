@@ -3,6 +3,10 @@
     margin: 20px auto;
 }
 
+.body {
+    padding: 30px;
+}
+
 .article-item {
     margin-bottom: 50px;
 }
