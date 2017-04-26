@@ -21,3 +21,5 @@ $app->get('/admin/article', Admin::class . ':article');
 $app->post('/admin/article', Admin::class . ':saveArticle');
 $app->get('/admin/article/{id}', Admin::class . ':article');
 $app->delete('/admin/article/{id}', Admin::class . ':deleteArticle');
+$app->get('/admin/article/{id}/comments', Admin::class . ':comments');
+$app->delete('/admin/comment/{id}', Admin::class . ':deleteComment');

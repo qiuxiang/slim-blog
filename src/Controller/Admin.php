@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\Article;
+use App\Model\Comment;
 use App\Model\User;
 
 class Admin extends Base
@@ -65,6 +66,29 @@ class Admin extends Base
             $this->user->nickname = $this->request->getParsedBody()['nickname'];
             $this->user->save();
             $this->alert('success', '修改成功', '/admin/personal');
+        });
+    }
+
+    public function comments($req, $res, $args)
+    {
+        return $this->auth(function () use ($args) {
+            $this->active('article');
+            $page = $this->request->getQueryParam('page');
+            $comments = Comment::query()
+                ->where('article_id', $args['id'])
+                ->orderBy('created_at', 'desc')
+                ->paginate(20, ['*'], 'page', $page);
+            $comments->withPath('/admin/article/' . $args['id'] . '/comments');
+            return $this->render('admin/comments.twig', ['comments' => $comments]);
+        });
+    }
+
+    public function deleteComment($req, $res, $args)
+    {
+        return $this->auth(function () use ($args) {
+            $comment = Comment::query()->find($args['id']);
+            $comment->delete();
+            return $this->response->write(true);
         });
     }
 

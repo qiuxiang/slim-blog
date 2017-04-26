@@ -11,6 +11,7 @@
             <th>作者</th>
             <th>标题</th>
             <th>发布时间</th>
+            <th>评论数</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -20,6 +21,9 @@
                 <td>{{ article.user.nickname }}</td>
                 <td><a href="/article/{{ article.id }}">{{ article.title }}</a></td>
                 <td>{{ article.created_at }}</td>
+                <td>
+                    <a href="/admin/article/{{ article.id }}/comments">{{ article.comments.count() }}</a>
+                </td>
                 <td>
                     <div class="btn-group">
                         <a class="btn btn-xs btn-danger" href="javascript:remove({{ article.id }})" title="删除">
@@ -56,10 +60,10 @@
 {% endblock %}
 {% block script %}
     <script>
-        function remove(article_id) {
-            if (confirm('？')) {
+        function remove(comment_id) {
+            if (confirm('确定删除该文章？')) {
                 $.ajax({
-                    url: '/admin/article/' + article_id,
+                    url: '/admin/comment/' + comment_id,
                     method: 'delete'
                 }).then(function () {
                     location.reload()

@@ -1,0 +1,62 @@
+{% extends "admin/base.twig" %}
+{% block body %}
+    <table class="table table-hover" style="margin-bottom: 0">
+        <thead>
+        <tr>
+            <th>用户</th>
+            <th>内容</th>
+            <th>发布时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for comment in comments %}
+            <tr>
+                <td>{{ comment.getUserName() }}</td>
+                <td>{{ comment.content }}</td>
+                <td>{{ comment.created_at }}</td>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn btn-xs btn-danger" href="javascript:remove({{ comment.id }})" title="删除">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if comments.total() > comments.perPage() %}
+        <ul class="pagination">
+            <li class="{{ comments.previousPageUrl() ? '' : 'disabled' }}">
+                <a href="{{ comments.previousPageUrl() }}">
+                    <span>&laquo;</span>
+                </a>
+            </li>
+            {% for page in range(1, comments.lastPage()) %}
+                <li class="{{ comments.currentPage() == page ? 'disabled' : '' }}">
+                    <a href="/admin/comments?page={{ page }}">{{ page }}</a>
+                </li>
+            {% endfor %}
+            <li class="{{ comments.nextPageUrl() ? '' : 'disabled' }}">
+                <a href="{{ comments.nextPageUrl() }}">
+                    <span>&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    {% endif %}
+{% endblock %}
+{% block script %}
+    <script>
+        function remove(comment_id) {
+            if (confirm('确定删除该评论？')) {
+                $.ajax({
+                    url: '/admin/comment/' + comment_id,
+                    method: 'delete'
+                }).then(function () {
+                    location.reload()
+                })
+            }
+        }
+    </script>
+{% endblock %}
