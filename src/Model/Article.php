@@ -21,9 +21,13 @@ class Article extends Model
 
     public function getImage()
     {
-        $dom = new DOMDocument;
-        $dom->loadHTML($this->content);
+        $dom = new DOMDocument();
+        @$dom->loadHTML($this->content);
         $img = $dom->getElementsByTagName('img')->item(0);
-        return $dom->saveHTML($img);
+        if ($img) {
+            return $dom->saveHTML($img);
+        } else {
+            return '';
+        }
     }
 }
