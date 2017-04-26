@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\Article;
 use App\Model\User;
 
 class Home extends Base
@@ -15,7 +16,9 @@ class Home extends Base
 
     public function index()
     {
-        return $this->render('home/index.twig');
+        $page = $this->request->getQueryParam('page');
+        $articles = Article::query()->paginate(10, ['*'], 'page', $page);
+        return $this->render('home/index.twig', ['articles' => $articles]);
     }
 
     public function logout() {

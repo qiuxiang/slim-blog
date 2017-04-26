@@ -1,0 +1,54 @@
+{% extends "home/base.twig" %}
+{% block title %}首页{% endblock %}
+{% block body %}
+    <header class="navbar navbar-static-top" id="top">
+        <div class="container">
+            <ul class="nav navbar-nav navbar-right">
+                {% if user %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            {{ user.nickname }} <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/admin/personal">管理</a></li>
+                            <li><a href="/logout">退出</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li><a href="/login">登录</a></li>
+                    <li><a href="/register">注册</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </header>
+    <div class="container">
+        {% for article in articles %}
+            <div class="article-item">
+                <h3><a href="/article/{{ article.id }}">{{ article.title }}</a></h3>
+                <ul class="list-inline text-muted">
+                    <li>发布时间：{{ article.created_at }}</li>
+                    <li>作者：{{ article.user.nickname }}</li>
+                    <li>评论：0</li>
+                </ul>
+                <p>{{ article.summary }}</p>
+            </div>
+        {% endfor %}
+        <ul class="pagination">
+            <li class="{{ articles.previousPageUrl() ? '' : 'disabled' }}">
+                <a href="{{ articles.previousPageUrl() }}">
+                    <span>&laquo;</span>
+                </a>
+            </li>
+            {% for page in range(1, articles.lastPage()) %}
+                <li class="{{ articles.currentPage() == page ? 'disabled' : '' }}">
+                    <a href="?page={{ page }}">{{ page }}</a>
+                </li>
+            {% endfor %}
+            <li class="{{ articles.nextPageUrl() ? '' : 'disabled' }}">
+                <a href="{{ articles.nextPageUrl() }}">
+                    <span>&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}

@@ -44,8 +44,8 @@ class Base
         $this->view = $container->view;
         $this->request = $container->request;
         $this->response = $container->response;
-        $this->user = $_SESSION['user'];
-        if ($this->user) {
+        if (array_key_exists('user', $_SESSION)) {
+            $this->user = $_SESSION['user'];
             $this->data['user'] = $this->user;
         }
     }
