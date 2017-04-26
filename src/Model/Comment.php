@@ -12,4 +12,13 @@ class Comment extends Model
     {
         return $this->belongsTo('App\Model\User');
     }
+
+    public function getUserName()
+    {
+        if ($this->user) {
+            return $this->user->nickname;
+        } else {
+            return "游客（{$this->ip}）";
+        }
+    }
 }

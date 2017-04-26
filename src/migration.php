@@ -43,6 +43,7 @@ if (!$schema->hasTable('comment')) {
         $table->string('content');
         $table->integer('user_id');
         $table->integer('article_id');
+        $table->string('ip');
         $table->timestamps();
     });
 }

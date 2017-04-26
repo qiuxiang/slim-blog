@@ -36,7 +36,12 @@ class Home extends Base
     {
         $data = $this->request->getParsedBody();
         $comment = new Comment();
-        $comment->user_id = $this->user->id;
+        if ($this->user) {
+            $comment->user_id = $this->user->id;
+        } else {
+            $comment->user_id = 0;
+        }
+        $comment->ip = $this->request->getServerParam('REMOTE_ADDR');
         $comment->article_id = $data['article_id'];
         $comment->content = $data['content'];
         $comment->save();

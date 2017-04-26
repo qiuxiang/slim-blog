@@ -13,23 +13,21 @@
         <div class="alert alert-info">{{ article.summary }}</div>
     {% endif %}
     <div class="article">{{ article.content|raw }}</div>
-    {% if user %}
-        <form action="/comment" class="comment-from" method="post">
-            <input type="text" name="article_id" value="{{ article.id }}" title="article_id" hidden>
-            <div class="form-group">
-                <textarea class="form-control" name="content" title="评论" placeholder="评论" required></textarea>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-primary">
-                    <span class="glyphicon glyphicon-ok"></span> 提交评论
-                </button>
-            </div>
-        </form>
-    {% endif %}
+    <form action="/comment" class="comment-from" method="post">
+        <input type="text" name="article_id" value="{{ article.id }}" title="article_id" hidden>
+        <div class="form-group">
+            <textarea class="form-control" name="content" title="评论" placeholder="评论" required></textarea>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary">
+                <span class="glyphicon glyphicon-ok"></span> 提交评论
+            </button>
+        </div>
+    </form>
     <div class="comments">
         {% for comment in article.comments %}
             <div class="comment">
-                <h4>{{ comment.user.nickname }}</h4>
+                <h4>{{ comment.getUserName() }}</h4>
                 <p>{{ comment.content }}</p>
                 <div class="text-muted">{{ comment.created_at }}</div>
             </div>
