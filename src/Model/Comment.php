@@ -4,17 +4,12 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model
+class Comment extends Model
 {
-    protected $table = 'article';
+    protected $table = 'comment';
 
     public function user()
     {
         return $this->belongsTo('App\Model\User');
-    }
-
-    public function comments()
-    {
-        return $this->hasMany('App\Model\Comment');
     }
 }

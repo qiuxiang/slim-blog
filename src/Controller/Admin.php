@@ -14,6 +14,10 @@ class Admin extends Base
         $menu = [
             User::ROLE_USER => [
                 [
+                    'url' => '/',
+                    'title' => '首页',
+                ],
+                [
                     'url' => '/admin/personal',
                     'title' => '个人',
                 ],

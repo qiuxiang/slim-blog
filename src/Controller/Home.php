@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\Article;
+use App\Model\Comment;
 use App\Model\User;
 
 class Home extends Base
@@ -26,6 +27,16 @@ class Home extends Base
     public function article($req, $res, $args) {
         $article = Article::query()->find($args['id']);
         return $this->render('home/article.twig', ['article' => $article]);
+    }
+
+    public function comment() {
+        $data = $this->request->getParsedBody();
+        $comment = new Comment();
+        $comment->user_id = $this->user->id;
+        $comment->article_id = $data['article_id'];
+        $comment->content = $data['content'];
+        $comment->save();
+        return $this->alert('success', '评论成功', '/article/' . $data['article_id']);
     }
 
     public function logout()

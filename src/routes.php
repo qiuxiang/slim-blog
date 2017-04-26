@@ -4,6 +4,7 @@ use App\Controller\Admin as AdminController;
 
 $app->get('/', HomeController::class . ':index');
 $app->get('/article/{id}', HomeController::class . ':article');
+$app->post('/comment', HomeController::class . ':comment');
 $app->get('/login', HomeController::class . ':login');
 $app->post('/login', HomeController::class . ':handleLogin');
 $app->get('/register', HomeController::class . ':register');

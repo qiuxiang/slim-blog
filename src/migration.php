@@ -36,3 +36,13 @@ if (!$schema->hasTable('article')) {
         $table->timestamps();
     });
 }
+
+if (!$schema->hasTable('comment')) {
+    $schema->create('comment', function (Blueprint $table) {
+        $table->increments('id');
+        $table->string('content');
+        $table->integer('user_id');
+        $table->integer('article_id');
+        $table->timestamps();
+    });
+}
