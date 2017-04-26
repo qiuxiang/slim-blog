@@ -9,11 +9,6 @@ class Home extends Base
 {
     protected $container;
 
-    public function __construct($container)
-    {
-        parent::__construct($container);
-    }
-
     public function index()
     {
         $page = $this->request->getQueryParam('page');
@@ -28,7 +23,13 @@ class Home extends Base
         return $this->render('home/index.twig', ['articles' => $articles, 'search' => $search]);
     }
 
-    public function logout() {
+    public function article($req, $res, $args) {
+        $article = Article::query()->find($args['id']);
+        return $this->render('home/article.twig', ['article' => $article]);
+    }
+
+    public function logout()
+    {
         $_SESSION['user'] = null;
         return $this->redirect('/login');
     }

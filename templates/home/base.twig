@@ -6,7 +6,41 @@
     <link rel="stylesheet" href="/home.css">
 </head>
 <body>
-<div id="body">{% block body %}{% endblock %}</div>
+{% block body %}
+    <header class="navbar navbar-static-top" id="top">
+        <div class="container">
+            <form class="navbar-form navbar-left">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="搜索" value="{{ search }}">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                {% if user %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            {{ user.nickname }} <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/admin/personal">管理</a></li>
+                            <li><a href="/logout">退出</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li><a href="/login">登录</a></li>
+                    <li><a href="/register">注册</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </header>
+    <div class="container body">
+        {% block content %}{% endblock %}
+    </div>
+{% endblock %}
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>

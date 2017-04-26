@@ -1,49 +1,18 @@
 {% extends "home/base.twig" %}
 {% block title %}首页{% endblock %}
-{% block body %}
-    <header class="navbar navbar-static-top" id="top">
-        <div class="container">
-            <form class="navbar-form navbar-left">
-                <div class="input-group">
-                    <input type="text" name="search" class="form-control" placeholder="搜索" value="{{ search }}">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                    </span>
-                </div>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
-                {% if user %}
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            {{ user.nickname }} <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/admin/personal">管理</a></li>
-                            <li><a href="/logout">退出</a></li>
-                        </ul>
-                    </li>
-                {% else %}
-                    <li><a href="/login">登录</a></li>
-                    <li><a href="/register">注册</a></li>
-                {% endif %}
+{% block content %}
+    {% for article in articles %}
+        <div class="article-item">
+            <h3><a href="/article/{{ article.id }}">{{ article.title }}</a></h3>
+            <ul class="list-inline text-muted">
+                <li>发布时间：{{ article.created_at }}</li>
+                <li>作者：{{ article.user.nickname }}</li>
+                <li>评论：0</li>
             </ul>
+            <p>{{ article.summary }}</p>
         </div>
-    </header>
-    <div class="container body">
-        {% for article in articles %}
-            <div class="article-item">
-                <h3><a href="/article/{{ article.id }}">{{ article.title }}</a></h3>
-                <ul class="list-inline text-muted">
-                    <li>发布时间：{{ article.created_at }}</li>
-                    <li>作者：{{ article.user.nickname }}</li>
-                    <li>评论：0</li>
-                </ul>
-                <p>{{ article.summary }}</p>
-            </div>
-        {% endfor %}
-        {% if articles.total() > articles.perPage() %}
+    {% endfor %}
+    {% if articles.total() > articles.perPage() %}
         <ul class="pagination">
             <li class="{{ articles.previousPageUrl() ? '' : 'disabled' }}">
                 <a href="{{ articles.previousPageUrl() }}">
@@ -61,6 +30,5 @@
                 </a>
             </li>
         </ul>
-        {% endif %}
-    </div>
+    {% endif %}
 {% endblock %}
