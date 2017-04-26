@@ -21,4 +21,12 @@ class User extends Model
     {
         return sha1($salt . $password);
     }
+
+    public function isAdmin() {
+        return $this->role == self::ROLE_ADMIN;
+    }
+
+    public function isWriter() {
+        return $this->role == self::ROLE_WRITER;
+    }
 }

@@ -37,18 +37,21 @@ class Admin extends Base
         $this->data['menu'] = $menu[$this->user->role];
     }
 
-    public function index() {
+    public function index()
+    {
         return $this->redirect('/admin/personal');
     }
 
-    public function personal() {
+    public function personal()
+    {
         return $this->auth(function () {
             $this->active('personal');
             return $this->render('admin/personal.twig');
         });
     }
 
-    public function updatePersonalInfo() {
+    public function updatePersonalInfo()
+    {
         return $this->auth(function () {
             $this->user->nickname = $this->request->getParsedBody()['nickname'];
             $this->user->save();
@@ -56,33 +59,37 @@ class Admin extends Base
         });
     }
 
-    public function articles() {
+    public function articles()
+    {
         return $this->auth(function () {
             $this->active('article');
             $page = $this->request->getQueryParam('page');
-            $articles = Article::query()->paginate(10, ['*'], 'page', $page);
+            $articles = Article::query()->paginate(20, ['*'], 'page', $page);
             $articles->withPath('/admin/articles');
             return $this->render('admin/articles.twig', ['articles' => $articles]);
         });
     }
 
-    public function article($req, $res, $args) {
-        return $this->auth(function () use($args) {
+    public function article($req, $res, $args)
+    {
+        return $this->auth(function () use ($args) {
             $this->active('article');
             $article = Article::query()->find($args['id']);
             return $this->render('admin/article.twig', ['article' => $article]);
         });
     }
 
-    public function deleteArticle($req, $res, $args) {
-        return $this->auth(function () use($args) {
+    public function deleteArticle($req, $res, $args)
+    {
+        return $this->auth(function () use ($args) {
             $article = Article::query()->find($args['id']);
             $article->delete();
             return $this->response->write(true);
         });
     }
 
-    public function saveArticle() {
+    public function saveArticle()
+    {
         return $this->auth(function () {
             $data = $this->request->getParsedBody();
             if ($data['id']) {
@@ -99,7 +106,40 @@ class Admin extends Base
         });
     }
 
-    public function active($menuItem) {
+    public function users()
+    {
+        return $this->auth(function () {
+            $this->active('user');
+            $page = $this->request->getQueryParam('page');
+            $users = User::query()->paginate(20, ['*'], 'page', $page);
+            $users->withPath('/admin/users');
+            return $this->render('admin/users.twig', [
+                'users' => $users,
+                'role_map' => [
+                    User::ROLE_USER => '用户',
+                    User::ROLE_WRITER => '作者',
+                    User::ROLE_ADMIN => '管理员',
+                ],
+            ]);
+        });
+    }
+
+    public function toggleUserRole($req, $res, $args)
+    {
+        return $this->auth(function () use ($args) {
+            $user = User::query()->find($args['id']);
+            if ($user->isWriter()) {
+                $user->role = User::ROLE_USER;
+            } else {
+                $user->role = User::ROLE_WRITER;
+            }
+            $user->save();
+            return $this->response->getBody()->write(true);
+        });
+    }
+
+    public function active($menuItem)
+    {
         foreach ($this->data['menu'] as &$item) {
             if (strpos($item['url'], $menuItem)) {
                 $item['active'] = true;
