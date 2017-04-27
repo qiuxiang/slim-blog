@@ -63,7 +63,7 @@
         function remove(comment_id) {
             if (confirm('确定删除该文章？')) {
                 $.ajax({
-                    url: '/admin/comment/' + comment_id,
+                    url: '/admin/article/' + comment_id,
                     method: 'delete'
                 }).then(function () {
                     location.reload()
