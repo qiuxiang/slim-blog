@@ -122,7 +122,10 @@ class Admin extends Base
     {
         return $this->auth(function () use ($args) {
             $this->active('article');
-            $article = Article::query()->find($args['id']);
+            $article = null;
+            if (array_key_exists('id', $args)) {
+                $article = Article::query()->find($args['id']);
+            }
             return $this->render('admin/article.twig', ['article' => $article]);
         });
     }
