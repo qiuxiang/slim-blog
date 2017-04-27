@@ -29,7 +29,7 @@
 }
 
 .article-item-picture img {
-    width: 50%;
+    max-height: 200px;
 }
 
 .comment {
